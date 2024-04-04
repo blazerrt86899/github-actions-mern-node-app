@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 
 import db from "./mongoC.js";
 
+const port = 4001
 const app = express();
 
 app.use((_req, res, next) => {
@@ -39,7 +40,7 @@ app.get('/getUsers', async(req, res) => {
     res.send(results).status(200);
 });
 
-app.listen(process.env.PORT, function () {
-    console.log("Server is listening");
+app.listen(port, function () {
+    console.log("Server is listening at" + port);
 });
  
