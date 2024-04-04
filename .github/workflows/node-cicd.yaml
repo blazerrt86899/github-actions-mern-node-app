@@ -22,13 +22,13 @@ jobs:
         runs-on: [gcp-ce]
         needs: [build]
         steps:
-          - name: Install and Setup Docker on Self Hosted Runner
-            run: |
-                apt update
-                apt install -y docker.io
-                systemctl start docker
-                chmod 777 /var/run/docker.sock
-                systemctl enable docker
+        #   - name: Install and Setup Docker on Self Hosted Runner
+        #     run: |
+        #         apt update
+        #         apt install -y docker.io
+        #         systemctl start docker
+        #         chmod 777 /var/run/docker.sock
+        #         systemctl enable docker
 
           - name: Pull Docker Image
             run: docker pull blazerrt86899/mern-node-app:latest
