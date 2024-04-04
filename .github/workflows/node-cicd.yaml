@@ -21,8 +21,6 @@ jobs:
     deploy:
         runs-on: [gcp-ce]
         needs: [build]
-        env:
-          PORT: 4000
         steps:
         #   - name: Install and Setup Docker on Self Hosted Runner
         #     run: |
@@ -39,6 +37,6 @@ jobs:
             run: docker rm -f $(docker ps -a -q)
         
           - name: Run Docker Image
-            run: docker run -d -p $PORT:$PORT --name mern-node-app-container -e MONGO_PASSWORD='${{ secrets.MONGODB_PASSWORD }}' blazerrt86899/mern-node-app
+            run: docker run -d -p 4000:4000 --name mern-node-app-container -e MONGO_PASSWORD='${{ secrets.MONGODB_PASSWORD }}' blazerrt86899/mern-node-app
 
             
