@@ -1,0 +1,38 @@
+name: CICD for Backend Node App
+on:
+    push:
+        branches: [main]
+jobs:
+    build:
+        runs-on: [ubuntu-latest]
+        steps:
+            - name: Checkout Source Code
+              uses: actions/checkout@v4
+
+            - name: Login into Docker Hub
+              run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            
+            - name: Build Docker Image
+              run: docker build -t blazerrt86899/mern-node-app .
+            
+            - name: Publish Image to Docker Hub
+              run: docker push blazerrt86899/mern-node-app:latest 
+    
+    deploy:
+        runs-on: [gcp-ce]
+        steps:
+          - name: Install and Setup Docker on Self Hosted Runner
+            run: |
+                sudo apt-get update
+                sudo apt-get install -y docker.io
+                sudo systemctl start docker
+                sudo chmod 777 /var/run/docker.sock
+                sudo systemctl enable docker
+
+          - name: Pull Docker Image
+            run: docker pull blazerrt86899/mern-node-app:latest
+        
+          - name: Run Docker Image
+            run: docker run -d -p 4000:4000 mern-node-app-container -e MONGO_PASSWORD='${{ secrets.MONGODB_PASSWORD }}' blazerrt86899/mern-node-app
+
+            
