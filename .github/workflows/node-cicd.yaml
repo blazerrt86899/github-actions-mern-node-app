@@ -20,6 +20,7 @@ jobs:
     
     deploy:
         runs-on: [gcp-ce]
+        needs: [build]
         steps:
           - name: Install and Setup Docker on Self Hosted Runner
             run: |
