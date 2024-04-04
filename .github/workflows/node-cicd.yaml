@@ -35,10 +35,8 @@ jobs:
           - name: Pull Docker Image
             run: docker pull blazerrt86899/mern-node-app:latest
 
-        #   - name: Stop and Delete container if available
-        #     run: |
-        #         docker stop $(docker ps -q)
-        #         docker rm $(docker ps -a -q)
+          - name: Stop and Delete container if available
+            run: docker rm -f $(docker ps -a -q)
         
           - name: Run Docker Image
             run: docker run -d -p $PORT:$PORT --name mern-node-app-container -e MONGO_PASSWORD='${{ secrets.MONGODB_PASSWORD }}' blazerrt86899/mern-node-app
