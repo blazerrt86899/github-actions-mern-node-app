@@ -24,11 +24,11 @@ jobs:
         steps:
           - name: Install and Setup Docker on Self Hosted Runner
             run: |
-                sudo apt update
-                sudo apt install -y docker.io
-                sudo systemctl start docker
-                sudo chmod 777 /var/run/docker.sock
-                sudo systemctl enable docker
+                apt update
+                apt install -y docker.io
+                systemctl start docker
+                chmod 777 /var/run/docker.sock
+                systemctl enable docker
 
           - name: Pull Docker Image
             run: docker pull blazerrt86899/mern-node-app:latest
